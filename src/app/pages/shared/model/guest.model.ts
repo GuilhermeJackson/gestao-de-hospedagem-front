@@ -3,6 +3,5 @@ export interface Guest {
     name: string;
     phone: string;
     cpf: string;
-    status?: string
   }
   

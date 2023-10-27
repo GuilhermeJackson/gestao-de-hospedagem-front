@@ -1,1 +1,15 @@
-<p>create-reserve works!</p>
+<h1>Criar Novo Hóspede</h1>
+
+<form>
+  <mat-form-field>
+    <mat-label>
+      Hóspedes
+    </mat-label>
+    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto='matAutocomplete'>
+      <mat-option *ngFor="let guest of filteredOptions | async" [value]="guest">
+        {{guest.name}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { GuestService } from '../shared/service/guest.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guest } from '../shared/model/guest.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-gust',
@@ -12,9 +14,10 @@ export class CreateGustComponent {
   guestForm: FormGroup;
 
   constructor(
+    private router: Router,
     protected guestService: GuestService,
     private formBuilder: FormBuilder
-    ) {
+  ) {
     this.guestForm = this.formBuilder.group({
       name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -26,16 +29,19 @@ export class CreateGustComponent {
     if (this.guestForm.valid) {
       const userData = this.guestForm.value;
       const guest: Guest = userData;
-      guest.status = "CHECKIN";
-      console.log("AQUI" + guest)
-      this.guestService.createUser(guest).subscribe(
-        (response) => {
+      this.guestService.createUser(guest).subscribe({
+        next: (response) => {
           console.log("SUCESSO: " + response)
+          this.back()
         },
-        (error: any) => {
+        error: (error: any) => {
           console.log("ERROR: " + error.toString)
-        }
-      )
+        },
+      });
     }
+  }
+
+  back(): void {
+    this.router.navigate(['/home'])
   }
 }
