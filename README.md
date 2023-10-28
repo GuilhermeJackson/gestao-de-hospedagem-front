@@ -1,27 +1,16 @@
-# GestaoHospedagemFront
+# Gestao de Hospedagem
+Este projeto permite cadastrar novos hóspedes e realizar reservas com datas para checkin e checkout.
+ 
+Este projeto foi gerado com [ Angular CLI ] ( https://github.com/angular/angular-cli ) versão 16.2.7.
+ 
+- Certifique-se de que você tenha o Node.js e o Angular CLI instalados em seu sistema. Se não, você pode instalá-los seguindo as instruções no site oficial do Node.js (https://nodejs.org/) e do Angular CLI (https://angular.io/guide/setup-local).
+- Após clonar esse projeto em sua maquina
+- Abra um terminal ou prompt de comando no seu sistema operacional e navegue até o diretório do projeto
+- Instale as dependências com ```npm install```. Isso instalará todas as dependências listadas no arquivo 'package.json'
+- Inicie a aplicação Angular em um servidor de desenvolvimento, execute o seguinte comando: ```ng serve```
+- A aplicação iniciará o servidor de desenvolvimento e exibirá informações sobre o servidor no endereço de acesso http://localhost:4200/
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  
+ ![image](https://github.com/GuilhermeJackson/gestao-de-hospedagem-front/assets/42879573/ef07b84c-d61b-4a99-895b-3a0297b703fc)
+![image](https://github.com/GuilhermeJackson/gestao-de-hospedagem-front/assets/42879573/cb9d077b-a098-4e00-9623-bdbdd5f93b67)
+![image](https://github.com/GuilhermeJackson/gestao-de-hospedagem-front/assets/42879573/b5aa80f3-0e12-401a-8e58-bf9028cea782)
