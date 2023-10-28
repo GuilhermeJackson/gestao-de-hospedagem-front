@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Guest } from '../model/guest.model';
-import { Observable, catchError, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from './ApiConfigService';
 import { Reserve } from '../model/reserve.model';
 

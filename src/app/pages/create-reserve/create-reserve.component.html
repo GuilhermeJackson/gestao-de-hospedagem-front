@@ -1,15 +1,51 @@
-<h1>Criar Novo Hóspede</h1>
+<div class="container">
 
-<form>
-  <mat-form-field>
-    <mat-label>
-      Hóspedes
-    </mat-label>
-    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-    <mat-autocomplete autoActiveFirstOption #auto='matAutocomplete'>
-      <mat-option *ngFor="let guest of filteredOptions | async" [value]="guest">
-        {{guest.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-</form>
+  <h1>Criar Reserva</h1>
+
+  <form [formGroup]="reserveFormGroup">
+    <mat-form-field>
+      <mat-label>
+        Hóspedes
+      </mat-label>
+      <input type="text" matInput [formControl]="myControl" formControlName="guest" [matAutocomplete]="auto">
+      <mat-autocomplete autoActiveFirstOption #auto='matAutocomplete'>
+        <mat-option *ngFor="let guest of filteredOptions | async" [value]="guest">
+          {{guest.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="example-form-field">
+      <mat-label>Data checkin</mat-label>
+      <mat-date-range-input [formGroup]="campaignOne" [rangePicker]="campaignOnePicker"
+        [comparisonStart]="campaignTwo.value.start" [comparisonEnd]="campaignTwo.value.end">
+        <input matStartDate placeholder="Start date" formControlName="start">
+        <input matEndDate placeholder="End date" formControlName="end">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field class="example-form-field">
+      <mat-label>Data checkout</mat-label>
+      <mat-date-range-input [formGroup]="campaignTwo" [rangePicker]="campaignTwoPicker"
+        [comparisonStart]="campaignOne.value.start" [comparisonEnd]="campaignOne.value.end">
+        <input matStartDate placeholder="Start date" formControlName="start">
+        <input matEndDate placeholder="End date" formControlName="end">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="campaignTwoPicker"></mat-datepicker-toggle>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-date-range-picker #campaignTwoPicker></mat-date-range-picker>
+    </mat-form-field>
+    <p>Precisa de garagem?</p>
+    <mat-radio-group aria-label="Select an option" formControlName="isGarage">
+      <mat-radio-button value="true">Sim</mat-radio-button>
+      <mat-radio-button value="false">Não, obrigado</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="button-container">
+      <button mat-raised-button color="accent">Salvar</button>
+      <button mat-raised-button>Voltar</button>
+    </div>
+  </form>
+</div>
