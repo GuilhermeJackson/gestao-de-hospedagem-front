@@ -20,7 +20,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
 import { ConsultGuestComponent } from './pages/consult-guest/consult-guest.component';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,8 @@ import { ConsultGuestComponent } from './pages/consult-guest/consult-guest.compo
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

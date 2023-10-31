@@ -16,16 +16,16 @@
     </mat-form-field>
     <div class="button-container">
       <button mat-raised-button color="accent" (click)="getReserveOfGuests()">Buscar</button>
-
-      <button mat-raised-button>Voltar</button>
+      <button mat-raised-button (click)="back()">Voltar</button>
     </div>
   </form>
 
-  <div class="list-wrap" *ngIf="true">
+  <div class="list-wrap" *ngIf="isVisible()">
     <mat-list role="list">
       <mat-list-item role="listitem">
         <div class="liste-item-text-button" *ngFor="let guest of guests">
-          {{guest.name}} <button mat-raised-button color="primary">Reserva</button>
+          {{guest.name}}
+          <button mat-raised-button color="primary">Checkout</button>
         </div>
       </mat-list-item>
     </mat-list>

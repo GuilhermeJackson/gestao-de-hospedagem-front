@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from './ApiConfigService';
 import { Reserve } from '../model/reserve.model';
-import { Guest } from '../model/guest.model';
+import { GuestWithReserve } from '../model/guest-with-reserve.model';
 
 @Injectable({
     providedIn: 'root',
@@ -17,7 +17,11 @@ export class ReserveService {
 
     createReserve(reserve: Reserve): Observable<Reserve> {
         const url = `${this.appConfig.apiBaseUrl}${this.reserveUrl}`
-        console.log("URL: " + reserve.checkin)
         return this.http.post<Reserve>(url, reserve);
+    }
+
+    getReserveByGuestId(): Observable<GuestWithReserve[]> {
+        const url = `${this.appConfig.apiBaseUrl}${this.reserveUrl}`
+        return this.http.get<GuestWithReserve[]>(url);
     }
 }

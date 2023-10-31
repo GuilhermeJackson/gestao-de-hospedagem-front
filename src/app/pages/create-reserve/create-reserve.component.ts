@@ -54,7 +54,7 @@ export class CreateReserveComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       start: ['', Validators.required],
       end: ['', Validators.required],
-      isGarage: [null, Validators.required],
+      isGarage: ['', Validators.required]
     });
   }
 
@@ -88,8 +88,8 @@ export class CreateReserveComponent implements OnInit {
       const controleName = this.myControl.value;
       this.reserve = {
         id_guest: controleName,
-        checkin: reserve.start,
-        checkout: reserve.end,
+        prevCheckin: reserve.start,
+        prevCheckout: reserve.end,
         isGarage: reserve.isGarage
       }
     }
@@ -98,6 +98,10 @@ export class CreateReserveComponent implements OnInit {
   private _filter(value: string) {
     const filterValue = value;
     return this.guests.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  back() {
+    this.router.navigate(['/home']);
   }
 
   campaignOne = new FormGroup({

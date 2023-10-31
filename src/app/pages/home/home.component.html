@@ -1,17 +1,37 @@
-<header>
-  <h1>Gerenciador de Hóspedes</h1>
-</header>
-<nav>
-  <button mat-raised-button routerLink="/create-guest">
-    Cadastrar Hóspedes
-  </button>
-  <button mat-raised-button routerLink="/create-reserve">
-    Cadastrar Reserva
-  </button>
-  <button mat-raised-button routerLink="/consult-guest">
-    Consulta Hóspedes
-  </button>
-  <button mat-raised-button routerLink="/create-guest">
-    Tela Atendente
-  </button>
-</nav>
+<div class="container">
+
+  <header>
+    <h1>Gerenciador de Hóspedes</h1>
+  </header>
+  <nav>
+    <button mat-raised-button routerLink="/create-guest">
+      Cadastrar Hóspedes
+    </button>
+    <button mat-raised-button routerLink="/create-reserve">
+      Cadastrar Reserva
+    </button>
+    <button mat-raised-button routerLink="/consult-guest">
+      Consulta Hóspedes
+    </button>
+    <button mat-raised-button routerLink="/create-guest">
+      Tela Atendente
+    </button>
+  </nav>
+
+  <div class="list-wrap" *ngIf="true">
+    <h2>Lista de Hóspedes</h2>
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="showGuestsInHotel()">No hotel</button>
+      <button mat-raised-button color="primary" (click)="showGuestsOutHotel()">A chegar</button>
+      <button mat-raised-button color="primary" (click)="showAllGuests()">No hotel e para chegar</button>
+    </div>
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <div class="liste-item-text-button" *ngFor="let guest of guests">
+          {{guest.guest.name}}
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+
+</div>
