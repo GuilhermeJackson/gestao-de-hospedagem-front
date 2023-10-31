@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Guest } from '../shared/model/guest.model';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ReserveService } from '../shared/service/reservation.service';
 import { GuestService } from '../shared/service/guest.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Reserve } from '../shared/model/reserve.model';
 
 @Component({
   selector: 'app-create-reserve',
@@ -15,44 +17,87 @@ export class CreateReserveComponent implements OnInit {
   today = new Date();
   month = this.today.getMonth();
   year = this.today.getFullYear();
-  reserveFormGroup: FormGroup;
+  reserve!: Reserve;
   myControl = new FormControl();
-  options: Guest[] = [
-    { id: 1, name: 'Nome do hospede', phone: '47 991056721', cpf: '000.000.000-21' },
-    { id: 2, name: 'Pedrinho', phone: '47 991056721', cpf: '000.000.000-21' }
-
-  ];
+  guests: Guest[] = [];
   filteredOptions!: Observable<Guest[]>;
+  formGroup!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
+    private guestService: GuestService,
     private reserveService: ReserveService,
-    private guestService: GuestService
-  ) {
-    this.reserveFormGroup = this.formBuilder.group({
-      name: ['', Validators.required],
-      checkin: ['', Validators.required],
-      checkout: ['', Validators.required],
-      isGarage: [null, Validators.required],
-    });
-
-    this.guestService
-  }
+    private router: Router,
+  ) { }
 
   ngOnInit() {
+    this.getGuests();
+    this.initFormGroup();
+    this.filterAutocomplete();
+  }
+
+  getGuests() {
+    this.guestService.getListGuest().subscribe({
+      next: (response) => {
+        response.map((item) => {
+          this.guests.push(item)
+        })
+        console.log("SUCESSO: " + response.map((guest) => guest))
+      },
+      error: (error: any) => {
+        console.log("ERROR: " + error)
+      },
+    });
+  }
+
+  initFormGroup() {
+    this.formGroup = this.formBuilder.group({
+      start: ['', Validators.required],
+      end: ['', Validators.required],
+      isGarage: [null, Validators.required],
+    });
+  }
+
+  filterAutocomplete() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value)) // Corrigindo o mapeamento
+      map(value => this._filter(value))
     );
   }
 
-  displayFn(guest: Guest): string {
-    return guest && guest.name ? guest.name : '';
+  addReserve() {
+    this.validateForms();
+    this.addReserverValidated();
   }
 
-  private _filter(value: string | Guest): Guest[] {
-    const filterValue = typeof value === 'string' ? value.toLowerCase() : value.name.toLowerCase();
-    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  addReserverValidated() {
+    this.reserveService.createReserve(this.reserve).subscribe({
+      next: (response) => {
+        console.log("SUCESSO: " + response)
+        this.router.navigate(['/home']);
+      },
+      error: (error: any) => {
+        console.log("ERROR: " + error)
+      },
+    })
+  }
+
+  validateForms() {
+    if (this.formGroup.valid && this.myControl.valid) {
+      const reserve = this.formGroup.value;
+      const controleName = this.myControl.value;
+      this.reserve = {
+        id_guest: controleName,
+        checkin: reserve.start,
+        checkout: reserve.end,
+        isGarage: reserve.isGarage
+      }
+    }
+  }
+
+  private _filter(value: string) {
+    const filterValue = value;
+    return this.guests.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   campaignOne = new FormGroup({

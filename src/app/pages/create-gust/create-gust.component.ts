@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { GuestService } from '../shared/service/guest.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guest } from '../shared/model/guest.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -29,7 +28,7 @@ export class CreateGustComponent {
     if (this.guestForm.valid) {
       const userData = this.guestForm.value;
       const guest: Guest = userData;
-      this.guestService.createUser(guest).subscribe({
+      this.guestService.createGuest(guest).subscribe({
         next: (response) => {
           console.log("SUCESSO: " + response)
           this.back()

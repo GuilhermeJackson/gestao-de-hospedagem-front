@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Guest } from '../model/guest.model';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppConfigService } from './ApiConfigService';
+import { GuestFilter } from '../model/guest-filter.model';
 
 @Injectable({
     providedIn: 'root',
@@ -14,10 +15,18 @@ export class GuestService {
         private http: HttpClient,
         private appConfig: AppConfigService) { }
 
-    createUser(guest: Guest): Observable<Guest> {
+    createGuest(guest: Guest): Observable<Guest> {
         const url = `${this.appConfig.apiBaseUrl}${this.guestUrl}`
-        console.log("URL: "+url)
         return this.http.post<Guest>(url, guest);
     }
 
+    getListGuest() {
+        const url = `${this.appConfig.apiBaseUrl}${this.guestUrl}`;
+        return this.http.get<Guest[]>(url);
+    }
+
+    searchGuest(name: string, phone: string, cpf: string): Observable<Guest[]> {
+        const params = { name, phone, cpf };
+        return this.http.get<Guest[]>(`${this.appConfig.apiBaseUrl}${this.guestUrl}`, { params });
+      }
 }

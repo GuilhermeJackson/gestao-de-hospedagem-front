@@ -1,0 +1,33 @@
+<div class="container">
+  <h1>Consulta hóspede</h1>
+
+  <form [formGroup]="formGroup">
+    <mat-form-field class="form-group">
+      <mat-label>Nome Hóspede</mat-label>
+      <input type="text" matInput id="name" formControlName="name" placeholder="Nome do Hóspede">
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <mat-label>Telefone </mat-label>
+      <input type="tel" matInput id="phone" formControlName="phone" placeholder="Telefone">
+    </mat-form-field>
+    <mat-form-field class="form-group">
+      <mat-label>CPF </mat-label>
+      <input type="text" matInput id="cpf" formControlName="cpf" placeholder="CPF">
+    </mat-form-field>
+    <div class="button-container">
+      <button mat-raised-button color="accent" (click)="getReserveOfGuests()">Buscar</button>
+
+      <button mat-raised-button>Voltar</button>
+    </div>
+  </form>
+
+  <div class="list-wrap" *ngIf="true">
+    <mat-list role="list">
+      <mat-list-item role="listitem">
+        <div class="liste-item-text-button" *ngFor="let guest of guests">
+          {{guest.name}} <button mat-raised-button color="primary">Reserva</button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>

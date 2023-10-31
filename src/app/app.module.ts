@@ -18,6 +18,8 @@ import { CreateReserveComponent } from './pages/create-reserve/create-reserve.co
 import { MatRadioModule } from '@angular/material/radio';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatListModule } from '@angular/material/list';
+import { ConsultGuestComponent } from './pages/consult-guest/consult-guest.component';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     AppComponent,
     HomeComponent,
     CreateGustComponent,
-    CreateReserveComponent
+    CreateReserveComponent,
+    ConsultGuestComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
