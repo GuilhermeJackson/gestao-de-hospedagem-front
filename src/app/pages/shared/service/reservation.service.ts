@@ -10,7 +10,7 @@ import { GuestWithReserve } from '../model/guest-with-reserve.model';
 })
 export class ReserveService {
     private reserveUrl = "api/reserva";
-
+ 
     constructor(
         private http: HttpClient,
         private appConfig: AppConfigService) { }
@@ -20,7 +20,7 @@ export class ReserveService {
         return this.http.post<Reserve>(url, reserve);
     }
 
-    getReserveByGuestId(): Observable<GuestWithReserve[]> {
+    getReserveWithGuest(): Observable<GuestWithReserve[]> {
         const url = `${this.appConfig.apiBaseUrl}${this.reserveUrl}`
         return this.http.get<GuestWithReserve[]>(url);
     }

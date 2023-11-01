@@ -21,7 +21,7 @@ export class HomeComponent {
   ) { }
 
   ngOnInit() {
-    this.reserveService.getReserveByGuestId().subscribe({
+    this.reserveService.getReserveWithGuest().subscribe({
       next: (response) => {
         this.guests = response;
         this.filterGuestLists()
