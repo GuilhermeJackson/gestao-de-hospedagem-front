@@ -21,6 +21,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatListModule } from '@angular/material/list';
 import { ConsultGuestComponent } from './pages/consult-guest/consult-guest.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AttendantCheckinComponent } from './pages/attendant-checkin/attendant-checkin.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     HomeComponent,
     CreateGustComponent,
     CreateReserveComponent,
-    ConsultGuestComponent
+    ConsultGuestComponent,
+    AttendantCheckinComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+<div class="container">
+
+    <div class="list-wrap" *ngIf="true">
+        <mat-list role="list">
+            <mat-list-item role="listitem">
+                <div class="liste-item-text-button" *ngFor="let guest of guests">
+                    <div class="text-guest">
+                        <p>Hóspede: {{guest.guest.name}}</p>
+                        <p>reserva: {{guest.id}}</p>
+                    </div>
+                    <button mat-raised-button color="primary" (click)="checkinNow()">Checkin agora</button>
+                </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <button mat-raised-button (click)="back()">Voltar</button>
+</div>

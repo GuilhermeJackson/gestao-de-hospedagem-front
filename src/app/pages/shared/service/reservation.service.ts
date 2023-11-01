@@ -10,7 +10,7 @@ import { GuestWithReserve } from '../model/guest-with-reserve.model';
 })
 export class ReserveService {
     private reserveUrl = "api/reserva";
- 
+    private reserveCheckinUrl = "api/reserva/atendente";
     constructor(
         private http: HttpClient,
         private appConfig: AppConfigService) { }
@@ -22,6 +22,11 @@ export class ReserveService {
 
     getReserveWithGuest(): Observable<GuestWithReserve[]> {
         const url = `${this.appConfig.apiBaseUrl}${this.reserveUrl}`
+        return this.http.get<GuestWithReserve[]>(url);
+    }
+
+    getReserveWithoutCheckin(): Observable<GuestWithReserve[]> {
+        const url = `${this.appConfig.apiBaseUrl}${this.reserveCheckinUrl}`
         return this.http.get<GuestWithReserve[]>(url);
     }
 }
