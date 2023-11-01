@@ -4,5 +4,5 @@ export interface Reserve {
     prevCheckin: Date;
     prevCheckout: Date;
     id_guest: number;
-    isGarage: boolean;
+    garage: boolean;
 }

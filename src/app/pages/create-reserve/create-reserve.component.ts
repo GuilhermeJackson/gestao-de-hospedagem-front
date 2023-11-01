@@ -90,7 +90,7 @@ export class CreateReserveComponent implements OnInit {
         id_guest: controleName,
         prevCheckin: reserve.start,
         prevCheckout: reserve.end,
-        isGarage: reserve.isGarage
+        garage: reserve.isGarage
       }
     }
   }
