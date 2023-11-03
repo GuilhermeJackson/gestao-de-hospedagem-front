@@ -29,4 +29,9 @@ export class ReserveService {
         const url = `${this.appConfig.apiBaseUrl}${this.reserveCheckinUrl}`
         return this.http.get<GuestWithReserve[]>(url);
     }
+
+    saveCheckinGuest(id: {id: number}): Observable<{id: number}> {
+        const url = `${this.appConfig.apiBaseUrl}${this.reserveCheckinUrl}`
+        return this.http.post<{id: number}>(url, id);
+    }
 }
