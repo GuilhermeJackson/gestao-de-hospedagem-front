@@ -3,16 +3,15 @@
     <div class="list-wrap" *ngIf="true">
         <mat-list role="list">
             <mat-list-item role="listitem">
-                <div class="liste-item-text-button" *ngFor="let guest of listReserveWithoutCheckin">
+                <div class="liste-item-text-button" *ngFor="let guest of guests">
                     <div class="text-guest">
                         <p>Hóspede: {{guest.guest.name}}</p>
                         <p>reserva: {{guest.id}}</p>
                     </div>
-                    <button mat-raised-button color="primary" (click)="checkinNow(guest.id)">Checkin agora</button>
+                    <button mat-raised-button color="primary" (click)="checkoutNow(guest.id)">Checkout agora</button>
                 </div>
             </mat-list-item>
         </mat-list>
     </div>
     <button mat-raised-button (click)="back()">Voltar</button>
-    <button mat-raised-button (click)="navigateCheckout()">Tela de checkout</button>
 </div>

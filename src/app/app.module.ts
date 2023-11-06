@@ -22,6 +22,7 @@ import { MatListModule } from '@angular/material/list';
 import { ConsultGuestComponent } from './pages/consult-guest/consult-guest.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AttendantCheckinComponent } from './pages/attendant-checkin/attendant-checkin.component';
+import { AttendantCheckoutComponent } from './pages/attendant-checkout/attendant-checkout.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { AttendantCheckinComponent } from './pages/attendant-checkin/attendant-c
     CreateGustComponent,
     CreateReserveComponent,
     ConsultGuestComponent,
-    AttendantCheckinComponent
+    AttendantCheckinComponent,
+    AttendantCheckoutComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ReserveService } from '../shared/service/reservation.service';
 import { GuestWithReserve } from '../shared/model/guest-with-reserve.model';
 import { Router } from '@angular/router';
-import { ReserveCheckin } from '../shared/model/reserve-checkin.model';
 
 @Component({
   selector: 'app-attendant-checkin',
@@ -10,7 +9,8 @@ import { ReserveCheckin } from '../shared/model/reserve-checkin.model';
   styleUrls: ['./attendant-checkin.component.less']
 })
 export class AttendantCheckinComponent implements OnInit {
-  guests!: GuestWithReserve[]
+  listReserveWithoutCheckin: GuestWithReserve[] = [];
+
   constructor(
     private reserveService: ReserveService,
     private router: Router
@@ -23,17 +23,24 @@ export class AttendantCheckinComponent implements OnInit {
   getListGuest() {
     this.reserveService.getReserveWithoutCheckin().subscribe({
       next: (response) => {
-        this.guests = response;
+        let auxListReserveWithoutCheckin: GuestWithReserve[] = []
+        response.map((item) => {
+          if(item.checkin == null) {
+            auxListReserveWithoutCheckin.push(item);
+          }
+        })
+        this.listReserveWithoutCheckin = auxListReserveWithoutCheckin;
       }
     })
   }
 
   checkinNow(id: number) {
-    this.guests.map((item) => {
+    this.listReserveWithoutCheckin.map((item) => {
       if (id === item.id) {        
         this.reserveService.saveCheckinGuest({id: item.id}).subscribe({
           next: (response) => {
             console.log(response);
+            this.getListGuest();
           }
         })
       }
@@ -45,5 +52,9 @@ export class AttendantCheckinComponent implements OnInit {
 
   back() {
     this.router.navigate(['/'])
+  }
+
+  navigateCheckout() {
+    this.router.navigate(['/checkout'])
   }
 }
