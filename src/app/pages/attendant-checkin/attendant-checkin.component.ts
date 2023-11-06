@@ -23,9 +23,9 @@ export class AttendantCheckinComponent implements OnInit {
   getListGuest() {
     this.reserveService.getReserveWithoutCheckin().subscribe({
       next: (response) => {
-        let auxListReserveWithoutCheckin: GuestWithReserve[] = []
+        let auxListReserveWithoutCheckin: GuestWithReserve[] = [];
         response.map((item) => {
-          if(item.checkin == null) {
+          if (item.checkin == null) {
             auxListReserveWithoutCheckin.push(item);
           }
         })
@@ -36,8 +36,8 @@ export class AttendantCheckinComponent implements OnInit {
 
   checkinNow(id: number) {
     this.listReserveWithoutCheckin.map((item) => {
-      if (id === item.id) {        
-        this.reserveService.saveCheckinGuest({id: item.id}).subscribe({
+      if (id === item.id) {
+        this.reserveService.saveCheckinGuest({ id: item.id }).subscribe({
           next: (response) => {
             console.log(response);
             this.getListGuest();

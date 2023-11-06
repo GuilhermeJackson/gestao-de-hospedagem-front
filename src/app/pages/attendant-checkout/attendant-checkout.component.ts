@@ -20,7 +20,7 @@ export class AttendantCheckoutComponent {
   }
 
   getListGuest() {
-    this.reserveService.getReserveWithoutCheckin().subscribe({
+    this.reserveService.getReserveWithoutCheckout().subscribe({
       next: (response) => {
         let auxListReserveWithoutCheckout: GuestWithReserve[] = []
         console.log(response)
@@ -37,7 +37,7 @@ export class AttendantCheckoutComponent {
   checkoutNow(id: number) {
     this.guests.map((item) => {
       if (id === item.id) {
-        this.reserveService.saveCheckinGuest({ id: item.id }).subscribe({
+        this.reserveService.saveChekoutGuest({ id: item.id }).subscribe({
           next: (response) => {
             console.log(response);
             this.getListGuest();
