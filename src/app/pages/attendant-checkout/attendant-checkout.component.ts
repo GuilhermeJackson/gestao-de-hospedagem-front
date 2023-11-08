@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { PaymentCalculate } from '../shared/model/payment-calculate.model';
 import { WeekendaysAndWeekday } from '../shared/model/weekndays-weeday.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackBarService } from '../shared/service/snack-bar.service';
 
 @Component({
   selector: 'app-attendant-checkout',
@@ -15,24 +16,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AttendantCheckoutComponent {
   guests: GuestWithReserve[] = [];
-  payment!: Payment;
+  payment: Payment = {};
   errorResponseMessage = "";
   constructor(
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private reserveService: ReserveService,
     private router: Router
   ) {
   }
   ngOnInit(): void {
     this.getListGuest();
-    this.payment = {}
-  }
-
-  openSnackBar(msg: string) {
-    this.snackBar.open(msg, "Fechar", {
-      verticalPosition: "top",
-      horizontalPosition: "start",
-    })
   }
 
   getListGuest() {
@@ -45,11 +38,11 @@ export class AttendantCheckoutComponent {
             auxListReserveWithoutCheckout.push(item);
           }
         }),
-        this.guests = auxListReserveWithoutCheckout
+          this.guests = auxListReserveWithoutCheckout
       },
       error: (error) => {
         this.errorResponseMessage = error.error;
-        this.openSnackBar(error.error)
+        this.snackBar.showMessage(error.error)
       }
     })
   }
@@ -64,7 +57,7 @@ export class AttendantCheckoutComponent {
           },
           error: (error) => {
             this.errorResponseMessage = error.error;
-            this.openSnackBar(error.error)
+            this.snackBar.showMessage(error.error)
           }
         })
       }
