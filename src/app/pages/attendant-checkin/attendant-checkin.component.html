@@ -1,5 +1,7 @@
 <div class="container">
-
+    <div *ngIf="errorResponseMessage">
+        <p class="error-message">{{ errorResponseMessage }}</p>
+    </div>
     <div class="list-wrap" *ngIf="true">
         <mat-list role="list">
             <mat-list-item role="listitem">

@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AttendantCheckinComponent implements OnInit {
   listReserveWithoutCheckin: GuestWithReserve[] = [];
-
+  errorResponseMessage: string = '';
   constructor(
     private reserveService: ReserveService,
     private router: Router
@@ -30,6 +30,10 @@ export class AttendantCheckinComponent implements OnInit {
           }
         })
         this.listReserveWithoutCheckin = auxListReserveWithoutCheckin;
+      },
+      error: (error) => {
+        console.log("Erro: ", error)
+        this.errorResponseMessage = error.error
       }
     })
   }
@@ -41,12 +45,14 @@ export class AttendantCheckinComponent implements OnInit {
           next: (response) => {
             console.log(response);
             this.getListGuest();
+          },
+          error: (error) => {
+            console.log("Erro AA: ", error)
+            this.errorResponseMessage = error.error;
           }
         })
       }
-
     })
-
     this.getListGuest();
   }
 

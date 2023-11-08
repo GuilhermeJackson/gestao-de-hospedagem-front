@@ -1,6 +1,8 @@
 <div class="container">
-
-    <div class="list-wrap" *ngIf="true">
+    <div *ngIf="errorResponseMessage">
+        <p class="error-message">{{ errorResponseMessage }}</p>
+    </div>
+    <div class="list-wrap" *ngIf="guests.length">
         <mat-list role="list">
             <mat-list-item role="listitem">
                 <div class="liste-item-text-button" *ngFor="let guest of guests">
@@ -8,10 +10,44 @@
                         <p>Hóspede: {{guest.guest.name}}</p>
                         <p>reserva: {{guest.id}}</p>
                     </div>
-                    <button mat-raised-button color="primary" (click)="checkoutNow(guest.id)">Checkout agora</button>
+                    <button mat-raised-button color="primary" (click)="selectedGuest(guest.id)">Pagamento</button>
                 </div>
             </mat-list-item>
         </mat-list>
+    </div>
+
+    <div class="table-list-checkout" *ngIf="payment.idReserve">
+        <div class="table-item">
+            <h4>Dias Semanas: </h4>
+            <h4>R$ {{payment.qtWeekday}}</h4>
+        </div>
+        <div class="table-item">
+            <h4>Valor dias Semanas: </h4>
+            <h4>R$ {{payment.valueWeekday}}</h4>
+        </div>
+        <div class="table-item">
+            <h4>Finais de semanas: </h4>
+            <h4>R$ {{payment.qtWeekendays}}</h4>
+        </div>
+        <div class="table-item">
+            <h4>Valor finais de semanas: </h4>
+            <h4>R$ {{payment.valueWeekendays}}</h4>
+        </div>
+
+        <div class="table-item">
+            <h4>Valor garage Dias Semanas: </h4>
+            <h4>R$ {{payment.valueGarageWeekday}}</h4>
+        </div>
+
+        <div class="table-item">
+            <h4>Valor garage finais de semana: &nbsp;</h4>
+            <h4>R$ {{payment.valueGarageWeekendays}}</h4>
+        </div>
+        <div class="table-item">
+            <h4>Valor total: </h4>
+            <h4>R$ {{payment.totalValue}}</h4>
+        </div>
+        <button mat-raised-button (click)="checkoutNow(payment.idReserve)">Checkout agora</button>
     </div>
     <button mat-raised-button (click)="back()">Voltar</button>
 </div>

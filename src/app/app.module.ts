@@ -23,6 +23,8 @@ import { ConsultGuestComponent } from './pages/consult-guest/consult-guest.compo
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AttendantCheckinComponent } from './pages/attendant-checkin/attendant-checkin.component';
 import { AttendantCheckoutComponent } from './pages/attendant-checkout/attendant-checkout.component';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { AttendantCheckoutComponent } from './pages/attendant-checkout/attendant
     MatDatepickerModule,
     MatNativeDateModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDividerModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
