@@ -21,10 +21,10 @@ export class ReserveService {
         return this.http.post<Reserve>(url, reserve);
     }
 
-    getReserveWithGuest(): Observable<GuestWithReserve[]> {
-        const url = `${this.appConfig.apiBaseUrl}${this.reserveUrl}`
-        return this.http.get<GuestWithReserve[]>(url);
-    }
+    // getReserveWithGuest(): Observable<GuestWithReserve[]> {
+    //     const url = `${this.appConfig.apiBaseUrl}${this.reserveUrl}`
+    //     return this.http.get<GuestWithReserve[]>(url);
+    // }
 
     getReserveWithoutCheckin(): Observable<GuestWithReserve[]> {
         const url = `${this.appConfig.apiBaseUrl}${this.reserveCheckinUrl}`

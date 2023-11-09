@@ -10,10 +10,21 @@ export class SnackBarService {
     private snackBar: MatSnackBar
   ) { }
 
-  showMessage(msg: string) {
-    this.snackBar.open(msg, "Fechar", {
+  showMessageErro(msg: string) {
+    this.snackBar.open(msg, "Ok", {
       verticalPosition: "top",
-      horizontalPosition: "start",
+      horizontalPosition: "end",
+      // duration: 5000,
+      panelClass: ["red-snackbar"]
+    })
+  }
+
+  showMessageSuccess(msg: string) {
+    this.snackBar.open(msg, "Ok", {
+      verticalPosition: "top",
+      horizontalPosition: "end",
+      duration: 5000,
+      panelClass: ['green-snackbar']
     })
   }
 }

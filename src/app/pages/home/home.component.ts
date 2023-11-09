@@ -11,7 +11,7 @@ import { GuestWithReserve } from '../shared/model/guest-with-reserve.model';
 })
 export class HomeComponent {
   formGroup!: FormGroup
-  guests!: GuestWithReserve[];
+  guests: GuestWithReserve[] = []
   guestsInHotel!: GuestWithReserve[];
   guestsOutHotel!: GuestWithReserve[];
 
@@ -21,29 +21,25 @@ export class HomeComponent {
   ) { }
 
   ngOnInit() {
-    this.reserveService.getReserveWithGuest().subscribe({
+    this.getReserveWithoutCheckin()
+    this.getReserveWithoutCheckout()
+    this.showAllGuests();
+  }
+
+  getReserveWithoutCheckin() {
+    this.reserveService.getReserveWithoutCheckin().subscribe({
       next: (response) => {
-        this.guests = response;
-        this.filterGuestLists()
+        this.guestsOutHotel = response;
       }
     })
   }
 
-  getListFilterGuestOutHotel(guestWithReserve: GuestWithReserve) {
-    if (guestWithReserve.checkin !== null && guestWithReserve.checkout == null) {
-      this.guestsInHotel.push(guestWithReserve);
-    }
-  }
-
-  getListFilterGuestInHotel(guestWithReserve: GuestWithReserve) {
-    if (guestWithReserve.checkin == null && guestWithReserve.prevCheckin !== null) {
-      this.guestsOutHotel.push(guestWithReserve);
-    }
-  }
-
-  filterGuestLists() {
-    this.guestsInHotel = this.guests.filter((guest) => guest.checkin !== null && guest.checkout === null);
-    this.guestsOutHotel = this.guests.filter((guest) => guest.checkin === null && guest.prevCheckin !== null);
+  getReserveWithoutCheckout() {
+    this.reserveService.getReserveWithoutCheckout().subscribe({
+      next: (response) => {
+        this.guestsInHotel = response;
+      }
+    })
   }
 
   showGuestsInHotel() {
@@ -55,6 +51,7 @@ export class HomeComponent {
   }
 
   showAllGuests() {
+    this.guests = [];
     this.guests = [...this.guestsInHotel, ...this.guestsOutHotel];
   }
 }

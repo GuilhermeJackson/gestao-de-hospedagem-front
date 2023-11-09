@@ -18,7 +18,7 @@
     </button>
   </nav>
 
-  <div class="list-wrap" *ngIf="true">
+  <div class="list-wrap">
     <h2>Lista de Hóspedes</h2>
     <div class="button-container">
       <button mat-raised-button color="primary" (click)="showGuestsInHotel()">No hotel</button>
@@ -30,6 +30,7 @@
         <div class="liste-item-text-button" *ngFor="let guest of guests">
           {{guest.guest.name}}
         </div>
+
       </mat-list-item>
     </mat-list>
   </div>

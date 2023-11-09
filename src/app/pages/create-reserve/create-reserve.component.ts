@@ -7,6 +7,7 @@ import { ReserveService } from '../shared/service/reservation.service';
 import { GuestService } from '../shared/service/guest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Reserve } from '../shared/model/reserve.model';
+import { SnackBarService } from '../shared/service/snack-bar.service';
 
 @Component({
   selector: 'app-create-reserve',
@@ -24,6 +25,7 @@ export class CreateReserveComponent implements OnInit {
   formGroup!: FormGroup;
 
   constructor(
+    private snackbar: SnackBarService,
     private formBuilder: FormBuilder,
     private guestService: GuestService,
     private reserveService: ReserveService,
@@ -37,17 +39,18 @@ export class CreateReserveComponent implements OnInit {
   }
 
   getGuests() {
-    this.guestService.getListGuest().subscribe({
-      next: (response) => {
-        response.map((item) => {
-          this.guests.push(item)
-        })
-        console.log("SUCESSO: " + response.map((guest) => guest))
-      },
-      error: (error: any) => {
-        console.log("ERROR: " + error)
-      },
-    });
+    this.guestService.getListGuest()
+      .subscribe({
+        next: (response) => {
+          response.map((item) => {
+            this.guests.push(item)
+          })
+          console.log("SUCESSO: " + response.map((guest) => guest))
+        },
+        error: (error: any) => {
+          console.log("ERROR: " + error)
+        },
+      });
   }
 
   initFormGroup() {
@@ -72,11 +75,12 @@ export class CreateReserveComponent implements OnInit {
 
   addReserverValidated() {
     this.reserveService.createReserve(this.reserve).subscribe({
-      next: (response) => {
-        console.log("SUCESSO: " + response)
+      next: () => {
+        this.snackbar.showMessageSuccess("Reserva criada com sucesso!")
         this.router.navigate(['/home']);
       },
       error: (error: any) => {
+        this.snackbar.showMessageErro(error.error)
         console.log("ERROR: " + error)
       },
     })

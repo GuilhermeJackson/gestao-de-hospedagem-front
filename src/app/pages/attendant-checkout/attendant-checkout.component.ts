@@ -42,7 +42,7 @@ export class AttendantCheckoutComponent {
       },
       error: (error) => {
         this.errorResponseMessage = error.error;
-        this.snackBar.showMessage(error.error)
+        this.snackBar.showMessageErro(error.error)
       }
     })
   }
@@ -57,7 +57,7 @@ export class AttendantCheckoutComponent {
           },
           error: (error) => {
             this.errorResponseMessage = error.error;
-            this.snackBar.showMessage(error.error)
+            this.snackBar.showMessageErro(error.error)
           }
         })
       }
