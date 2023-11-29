@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guest } from '../shared/model/guest.model';
 import { ReserveService } from '../shared/service/reservation.service';
 import { GuestWithReserve } from '../shared/model/guest-with-reserve.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -21,9 +22,19 @@ export class HomeComponent {
   ) { }
 
   ngOnInit() {
-    this.getReserveWithoutCheckin()
-    this.getReserveWithoutCheckout()
-    this.showAllGuests();
+    forkJoin([
+      this.reserveService.getReserveWithoutCheckin(),
+      this.reserveService.getReserveWithoutCheckout()
+    ]).subscribe({
+      next: ([guestsWithoutCheckin, guestsWithoutCheckout]) => {
+        this.guestsOutHotel = guestsWithoutCheckin;
+        this.guestsInHotel = guestsWithoutCheckout;
+        this.showAllGuests();
+      },
+      error: (error) => {
+        console.error('Error: ', error);
+      }
+    });
   }
 
   getReserveWithoutCheckin() {

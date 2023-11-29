@@ -1,6 +1,5 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { GuestWithReserve } from '../model/guest-with-reserve.model';
 import { ReserveService } from './reservation.service';
 import { Guest } from '../model/guest.model';
@@ -23,7 +22,7 @@ describe('ReservationService', () => {
     httpMock.verify();
   });
 
-  it('should list reservations', () => {
+  it('should list reservations without checkin', () => {
     const guestData: Guest = {
       id: 1,
       name: 'John Doe',
@@ -31,20 +30,22 @@ describe('ReservationService', () => {
       cpf: '12345678901',
     };
     const guestWithReserveData: GuestWithReserve = {
-      checkin: new Date('2023-11-01'),
+      checkin: new Date(''),
       checkout: new Date('2023-11-10'),
       guest: guestData,
       prevCheckin: new Date('2023-10-01'),
       prevCheckout: new Date('2023-10-10'),
+      id: 0,
+      garage: false
     };
     const mockReservations: GuestWithReserve[] = [guestWithReserveData, guestWithReserveData];
 
-    reservationService.getReserveWithGuest().subscribe(
+    reservationService.getReserveWithoutCheckin().subscribe(
       (reservations: GuestWithReserve[]) => {
         expect(reservations).toEqual(mockReservations);
       });
 
-    const req = httpMock.expectOne('http://localhost:8080/api/reserva');
+    const req = httpMock.expectOne('http://localhost:8080/api/reserva/atendente/checkin');
 
     expect(req.request.method).toBe('GET');
 
@@ -58,7 +59,7 @@ describe('ReservationService', () => {
       prevCheckin: new Date('2023-10-01'),
       prevCheckout: new Date('2023-10-10'),
       id_guest: 1,
-      isGarage: true,
+      garage: true,
     };
     reservationService.createReserve(reserveObject).subscribe(
       (reservations: Reserve) => {

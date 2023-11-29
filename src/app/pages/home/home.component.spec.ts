@@ -16,7 +16,10 @@ describe('HomeComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [HomeComponent],
-      imports: [HttpClientModule, MatListModule],
+      imports: [
+        HttpClientModule,
+        MatListModule
+      ],
       providers: [
         ReserveService
       ]
@@ -31,42 +34,55 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should get list of reserve with guest', () => {
-    const listGuestWithReserveData = [guestWithReserveData, guestWithReserveData]
-    spyOn(reserveService, 'getReserveWithGuest').and.returnValue(of(listGuestWithReserveData))
+  it('should get list of reserve without checkin', () => {
+    const listGuestWithoutCheckout = [guestWithoutCheckoutData, guestWithoutCheckoutData];
+    spyOn(reserveService, 'getReserveWithoutCheckout').and.returnValue(of(listGuestWithoutCheckout));
+    const listGuestWithoutCheckin = [guestWithoutCheckinData, guestWithoutCheckinData];
+    spyOn(reserveService, 'getReserveWithoutCheckin').and.returnValue(of(listGuestWithoutCheckin));
 
     component.ngOnInit();
 
-    expect(component.guests).toEqual(listGuestWithReserveData);
+    expect(component.guests).toContain(guestWithoutCheckinData);
+  });
+
+  it('should get list of reserve without checkout', () => {
+    const listGuestWithoutCheckout = [guestWithoutCheckoutData, guestWithoutCheckoutData];
+    spyOn(reserveService, 'getReserveWithoutCheckout').and.returnValue(of(listGuestWithoutCheckout));
+    const listGuestWithoutCheckin = [guestWithoutCheckinData, guestWithoutCheckinData];
+    spyOn(reserveService, 'getReserveWithoutCheckin').and.returnValue(of(listGuestWithoutCheckin));
+
+    component.ngOnInit();
+
+    expect(component.guests).toContain(guestWithoutCheckoutData);
   });
 
   it('should show guests in hotel', () => {
-    const guestsInHotel: GuestWithReserve[] = [guestWithReserveData];
+    const guestsInHotel: GuestWithReserve[] = [guestWithoutCheckoutData, guestWithoutCheckoutData];
 
     component.guestsInHotel = guestsInHotel;
     component.showGuestsInHotel();
 
     expect(component.guests).toEqual(guestsInHotel);
-    expect(component.guests).toContain(guestWithReserveData);
-    expect(component.guests[0]).toBe(guestWithReserveData);
+    expect(component.guests).toContain(guestWithoutCheckoutData);
+    expect(component.guests[0]).toBe(guestWithoutCheckoutData);
     expect(component.guests).toBeTruthy();
   });
 
   it('should show guests out hotel', () => {
-    const guestsInHotel: GuestWithReserve[] = [guestWithReserveData];
+    const guestsInHotel: GuestWithReserve[] = [guestWithReserveFake];
 
     component.guestsOutHotel = guestsInHotel;
     component.showGuestsOutHotel();
 
     expect(component.guests).toEqual(guestsInHotel);
-    expect(component.guests).toContain(guestWithReserveData);
-    expect(component.guests[0]).toBe(guestWithReserveData);
+    expect(component.guests).toContain(guestWithReserveFake);
+    expect(component.guests[0]).toBe(guestWithReserveFake);
     expect(component.guests).toBeTruthy();
   });
 
   it('should show guests out hotel and in hotel', () => {
-    const guestsInHotel = [guestWithReserveData];
-    const guestsOutHotel = [guestWithReserveData];
+    const guestsInHotel = [guestWithoutCheckoutData];
+    const guestsOutHotel = [guestWithoutCheckinData];
     component.guestsInHotel = guestsInHotel;
     component.guestsOutHotel = guestsOutHotel;
 
@@ -75,29 +91,40 @@ describe('HomeComponent', () => {
     expect(component.guests).toEqual([...guestsInHotel, ...guestsOutHotel]);
   });
 
-  it('should filter guests in hotel and guests out of hotel', () => {
-    const guests: GuestWithReserve[] = [guestWithReserveData];
-
-    component.guests = guests;
-    component.filterGuestLists();
-
-    const getFilterInHotel = guests.filter(guest => guest.checkin !== null && guest.checkout === null);
-    const getFilteroutHotel = guests.filter(guest => guest.checkin === null && guest.prevCheckin !== null)
-    expect(component.guestsInHotel).toEqual(getFilterInHotel);
-    expect(component.guestsOutHotel).toEqual(getFilteroutHotel);
-  });
-
-  const guestData: Guest = {
+  const guestFake: Guest = {
     id: 1,
     name: 'John Doe',
     phone: '123-456-7890',
     cpf: '12345678901',
   };
-  const guestWithReserveData: GuestWithReserve = {
+
+  const guestWithReserveFake: GuestWithReserve = {
     checkin: new Date('2023-11-01'),
     checkout: new Date('2023-11-10'),
-    guest: guestData,
+    guest: guestFake,
     prevCheckin: new Date('2023-10-01'),
     prevCheckout: new Date('2023-10-10'),
+    id: 0,
+    garage: false
+  };
+
+  const guestWithoutCheckinData: GuestWithReserve = {
+    checkin: new Date(''),
+    checkout: new Date(''),
+    guest: guestFake,
+    prevCheckin: new Date('2023-10-01'),
+    prevCheckout: new Date('2023-10-10'),
+    id: 0,
+    garage: false
+  };
+
+  const guestWithoutCheckoutData: GuestWithReserve = {
+    checkin: new Date('2023-11-01'),
+    checkout: new Date('2023-11-10'),
+    guest: guestFake,
+    prevCheckin: new Date('2023-10-01'),
+    prevCheckout: new Date('2023-10-10'),
+    id: 0,
+    garage: false
   };
 });

@@ -4,11 +4,13 @@ import { GuestService } from '../shared/service/guest.service';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Guest } from '../shared/model/guest.model';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackBarService } from '../shared/service/snack-bar.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 describe('CreateGustComponent', () => {
@@ -16,26 +18,31 @@ describe('CreateGustComponent', () => {
   let fixture: ComponentFixture<CreateGustComponent>;
   let guestService: GuestService;
   let router: Router;
+  let snackBarService: SnackBarService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [CreateGustComponent],
-      providers: [
-        GuestService,
-        FormBuilder,
-        Router
-      ],
       imports: [
         ReactiveFormsModule,
         HttpClientModule,
         MatInputModule,
-        MatFormFieldModule
+        MatFormFieldModule,
+        BrowserAnimationsModule,
+        MatSnackBarModule
       ],
+      providers: [
+        GuestService,
+        FormBuilder,
+        Router
+      ]
     });
     fixture = TestBed.createComponent(CreateGustComponent);
     component = fixture.componentInstance;
     guestService = TestBed.inject(GuestService);
     router = TestBed.inject(Router);
+    snackBarService = TestBed.inject(SnackBarService);
+
   });
 
   it('should create', () => {

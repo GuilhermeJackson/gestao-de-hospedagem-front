@@ -4,6 +4,6 @@ import { Injectable } from "@angular/core";
     providedIn: 'root',
   })
 export class AppConfigService {
-    apiBaseUrl = "http://localhost:8080/"; // Defina a URL do seu servidor local aqui
+    apiBaseUrl = "http://localhost:8080/";
   }
   

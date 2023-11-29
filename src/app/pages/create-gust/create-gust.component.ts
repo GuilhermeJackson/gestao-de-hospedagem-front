@@ -32,8 +32,8 @@ export class CreateGustComponent {
       const guest: Guest = userData;
       this.guestService.createGuest(guest).subscribe({
         next: () => {
-          this.snackBar.showMessageSuccess("Hóspede criado com sucesso!")
-          this.back()
+          this.snackBar.showMessageSuccess("Hóspede criado com sucesso!");
+          this.back();
         },
         error: (error: any) => {
           console.log("ERROR: " + error.toString)

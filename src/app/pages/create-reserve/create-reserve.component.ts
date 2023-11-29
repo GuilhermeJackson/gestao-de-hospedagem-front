@@ -1,11 +1,11 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Guest } from '../shared/model/guest.model';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { ReserveService } from '../shared/service/reservation.service';
 import { GuestService } from '../shared/service/guest.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Reserve } from '../shared/model/reserve.model';
 import { SnackBarService } from '../shared/service/snack-bar.service';
 
@@ -90,11 +90,14 @@ export class CreateReserveComponent implements OnInit {
     if (this.formGroup.valid && this.myControl.valid) {
       const reserve = this.formGroup.value;
       const controleName = this.myControl.value;
-      this.reserve = {
-        id_guest: controleName,
-        prevCheckin: reserve.start,
-        prevCheckout: reserve.end,
-        garage: reserve.isGarage
+      const idGuest: Guest = this.guests.find((item) => controleName === item.name) ?? { id: 0, name: "", phone: "", cpf: "" };
+      if (idGuest) {
+        this.reserve = {
+          id_guest: idGuest?.id,
+          prevCheckin: reserve.start,
+          prevCheckout: reserve.end,
+          garage: reserve.isGarage
+        }
       }
     }
   }

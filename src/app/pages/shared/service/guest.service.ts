@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Guest } from '../model/guest.model';
-import { Observable, catchError, map, of, tap } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { AppConfigService } from './ApiConfigService';
-import { GuestFilter } from '../model/guest-filter.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class GuestService {
     private guestUrl = "api/hospede";
+    private url = environment.api;
 
     constructor(
         private http: HttpClient,
@@ -22,7 +23,7 @@ export class GuestService {
 
     getListGuest() {
         const url = `${this.appConfig.apiBaseUrl}${this.guestUrl}`;
-        return this.http.get<Guest[]>(url);
+        return this.http.get<Guest[]>(this.url+this.guestUrl);
     }
 
     searchGuest(name: string, phone: string, cpf: string): Observable<Guest[]> {
